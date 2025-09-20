@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>PluginBindings</RootNamespace>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\ExamplePlugin\ExamplePlugin.csproj" />
+    </ItemGroup>
+    
+    <Target Name="Clean Bindings" AfterTargets="Clean">
+        <RemoveDir Directories="bindings"/>
+        <MakeDir Directories="bindings"/>
+    </Target>
+</Project>

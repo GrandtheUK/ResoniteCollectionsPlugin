@@ -4,7 +4,12 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>CollectionsPlugin</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="ProtoFlux\" />
+    </ItemGroup>
     
     <Target Name="GenerateBindings" AfterTargets="Build">
         <!-- Symlink required DLLs. if you make no reference to FrooxEngine in your code then you can remove everything but ProtoFlux.Core.dll -->
@@ -27,7 +32,7 @@
         <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(TargetDir)" UseSymboliclinksIfPossible="true"/>
         
         <!-- Run Bindings Generator -->
-        <Exec Command="dotnet $(ResonitePath)Tools/ProtofluxBindingGenerator/net9.0/ProtoFluxBindingGenerator.dll $(MSBuildProjectDirectory)/../ExamplePluginBindings/bindings $(TargetDir)"/>
+        <Exec Command="dotnet $(ResonitePath)Tools/ProtofluxBindingGenerator/net9.0/ProtoFluxBindingGenerator.dll $(MSBuildProjectDirectory)/../CollectionsPluginBindings/bindings $(TargetDir)"/>
         <!-- Clean up the required DLLs -->
         <Delete Files="@(DestFiles)"/>
     </Target>

@@ -5,10 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionsPlugin", "CollectionsPlugin\CollectionsPlugin.csproj", "{91EC42B6-7089-4C43-B816-B532F55CAAF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionsPluginBindings", "CollectionsPluginBindings\CollectionsPluginBindings.csproj", "{9823E0CA-9CEF-408D-B153-0FC4B694A31F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{91EC42B6-7089-4C43-B816-B532F55CAAF8} = {91EC42B6-7089-4C43-B816-B532F55CAAF8}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGenerators", "Project-Obsidian.SourceGenerators\ProjectObsidian.SourceGenerators\SourceGenerators.csproj", "{00BCEC73-6635-40B3-D6E3-EB419B55776A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,9 +20,9 @@ Global
 		{91EC42B6-7089-4C43-B816-B532F55CAAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91EC42B6-7089-4C43-B816-B532F55CAAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91EC42B6-7089-4C43-B816-B532F55CAAF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9823E0CA-9CEF-408D-B153-0FC4B694A31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9823E0CA-9CEF-408D-B153-0FC4B694A31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9823E0CA-9CEF-408D-B153-0FC4B694A31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9823E0CA-9CEF-408D-B153-0FC4B694A31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00BCEC73-6635-40B3-D6E3-EB419B55776A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00BCEC73-6635-40B3-D6E3-EB419B55776A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00BCEC73-6635-40B3-D6E3-EB419B55776A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00BCEC73-6635-40B3-D6E3-EB419B55776A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -15,4 +15,8 @@
         <RemoveDir Directories="bindings"/>
         <MakeDir Directories="bindings"/>
     </Target>
+
+    <Target Name="CopyBinary" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(resonitePath)Libraries"/>
+    </Target>
 </Project>

@@ -1,3 +1,3 @@
 using Elements.Data;
 
-[assembly: DataModelAssembly(DataModelAssemblyType.Dependency)]
+[assembly: DataModelAssembly(DataModelAssemblyType.Core)]

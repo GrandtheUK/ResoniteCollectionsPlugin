@@ -6,11 +6,9 @@
         <Nullable>enable</Nullable>
         <RootNamespace>CollectionsPlugin</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="ProtoFlux\" />
-    </ItemGroup>
-    
+    <Target Name="CopyBinary" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(resonitePath)Libraries"/>
+    </Target>
     <Target Name="GenerateBindings" AfterTargets="Build">
         <!-- Symlink required DLLs. if you make no reference to FrooxEngine in your code then you can remove everything but ProtoFlux.Core.dll -->
         <ItemGroup>

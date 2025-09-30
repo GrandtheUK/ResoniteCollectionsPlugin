@@ -2,13 +2,11 @@ using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
-using ExecutionContext = ProtoFlux.Runtimes.Execution.ExecutionContext;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("List Events")]
-public class ListEvents: VoidNode<ExecutionContext>
+public class ListEvents: VoidNode<FrooxEngineContext>
 {
     public Call OnAdded;
     public Call OnRemoved;

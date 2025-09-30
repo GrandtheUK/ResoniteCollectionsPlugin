@@ -7,6 +7,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>CollectionsPlugin</RootNamespace>
         <Product>CollectionsPlugin</Product>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     </PropertyGroup>
     <PropertyGroup Condition="'$(ResonitePath)'==''">
         <!-- If you don't want to provide a ResonitePath in dotnet build, you can specify one here -->

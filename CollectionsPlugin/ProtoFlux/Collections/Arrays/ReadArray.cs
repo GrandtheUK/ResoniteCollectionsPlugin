@@ -5,20 +5,33 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Arrays;
 
-[NodeCategory("Collections.Arrays")]
+[NodeCategory("Collections/Arrays")]
 [NodeName("Read Array")]
 public class ReadArray<T> : VoidNode<FrooxEngineContext>
-    where T: IEquatable<T>
+    where T: unmanaged, IEquatable<T>
 {
     public readonly ObjectInput<SyncArray<T>> Array;
     public readonly ObjectInput<int> Index;
-    public readonly ObjectOutput<T> Value;
-    public readonly ObjectOutput<bool> HasValue;
+    public readonly ValueOutput<T> Value;
+    public readonly ValueOutput<bool> HasValue;
 
     protected override void ComputeOutputs(FrooxEngineContext context)
     {
         SyncArray<T> array = Array.Evaluate(context);
         int i = Index.Evaluate(context);
+        if (array == null || i >= array.Count || i < 0)
+        {
+            Value.Write(default,context);
+            HasValue.Write(false,context);
+            return;
+        }
         Value.Write(array[i],context);
+        HasValue.Write(true,context);
+    }
+
+    public ReadArray()
+    {
+        Value = new ValueOutput<T>(this);
+        HasValue = new ValueOutput<bool>(this);
     }
 }

@@ -11,7 +11,7 @@ public class ReadArray<T> : VoidNode<FrooxEngineContext>
     where T: unmanaged, IEquatable<T>
 {
     public readonly ObjectInput<SyncArray<T>> Array;
-    public readonly ObjectInput<int> Index;
+    public readonly ValueInput<int> Index;
     public readonly ValueOutput<T> Value;
     public readonly ValueOutput<bool> HasValue;
 

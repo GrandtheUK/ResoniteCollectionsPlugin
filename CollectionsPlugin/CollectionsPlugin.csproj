@@ -43,6 +43,14 @@
     <ItemGroup>
         <ProjectReference Include="..\Project-Obsidian.SourceGenerators\ProjectObsidian.SourceGenerators\SourceGenerators.csproj" OutputItemType="Analyzer"/>
     </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+        <Publicize Include="FrooxEngine:FrooxEngine.ReferenceUserOverride`1+Override"/>
+    </ItemGroup>
 
     <Target Name="CopyBinary" AfterTargets="PostBuildEvent">
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(resonitePath)Libraries"/>

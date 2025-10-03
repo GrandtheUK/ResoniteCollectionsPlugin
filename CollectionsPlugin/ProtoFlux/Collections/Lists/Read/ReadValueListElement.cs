@@ -3,7 +3,7 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
+namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 
 [NodeCategory("Collections/Lists")]
 [NodeName("Read Value List Element")]

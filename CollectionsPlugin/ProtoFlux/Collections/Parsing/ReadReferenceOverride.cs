@@ -7,6 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read Override")]
+[ContinuouslyChanging]
 public class ReadReferenceOverride<T> : VoidNode<FrooxEngineContext>
     where T : class, IWorldElement
 {

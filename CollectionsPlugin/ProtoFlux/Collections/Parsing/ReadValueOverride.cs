@@ -7,6 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read Override")]
+[ContinuouslyChanging]
 public class ReadValueOverride<T> : VoidNode<FrooxEngineContext>
     where T : unmanaged
 {

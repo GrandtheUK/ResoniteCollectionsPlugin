@@ -7,6 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read Override")]
+[ContinuouslyChanging]
 public class ReadObjectValueOverride<T> : VoidNode<FrooxEngineContext>
 {
     public readonly ObjectInput<ValueOverrideBase<T>.Override> Override;

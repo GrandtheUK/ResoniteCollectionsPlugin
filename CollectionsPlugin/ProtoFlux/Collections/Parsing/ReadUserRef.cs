@@ -7,6 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read UserRef")]
+[ContinuouslyChanging]
 public class ReadUserRef : ObjectFunctionNode<FrooxEngineContext,User>
 {
     public readonly ObjectInput<UserRef> UserRef;

@@ -5,6 +5,9 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
+[NodeCategory("Collections/Parsing")]
+[NodeName("Read Sync")]
+[ContinuouslyChanging]
 public class ReadSync<T> : ValueFunctionNode<FrooxEngineContext,T>
     where T: unmanaged
 {

@@ -6,6 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
+[NodeName("List Events")]
 public class ListEvents: VoidNode<FrooxEngineContext>
 {
     public Call OnAdded;

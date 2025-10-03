@@ -6,6 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
+[NodeName("List Length")]
 public class ListLength : VoidNode<FrooxEngineContext>
 {
     public readonly ObjectInput<ISyncList> List;

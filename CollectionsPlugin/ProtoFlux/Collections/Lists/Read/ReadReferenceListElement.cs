@@ -6,7 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Read Reference List Element")]
+[NodeName("Read List Element")]
 [NodeOverload("Collections.Lists.Read")]
 public class ReadReferenceListElement<T> : VoidNode<FrooxEngineContext> where T : class, IWorldElement
 {

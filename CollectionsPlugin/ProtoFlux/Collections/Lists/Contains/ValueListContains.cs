@@ -7,7 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Contains;
 
 [NodeCategory("Collections/Lists")]
 [NodeOverload("Collections.Lists.Contains")]
-[NodeName("Value List Contains")]
+[NodeName("List Contains")]
 public class ValueListContains<T> : VoidNode<FrooxEngineContext> where T: unmanaged
 {
     public readonly ObjectInput<SyncFieldList<T>> List;

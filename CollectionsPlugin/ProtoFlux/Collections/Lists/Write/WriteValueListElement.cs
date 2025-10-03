@@ -3,10 +3,10 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
+namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Write;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Write Value List Element")]
+[NodeName("Write List Element")]
 [NodeOverload("Collections.Lists.Write")]
 public class WriteValueListElement<T> : ActionNode<FrooxEngineContext>
     where T: unmanaged

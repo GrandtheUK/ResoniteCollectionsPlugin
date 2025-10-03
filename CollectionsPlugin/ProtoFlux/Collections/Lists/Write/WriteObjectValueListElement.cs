@@ -6,7 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Write;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Write Object List Element")]
+[NodeName("Write List Element")]
 [NodeOverload("Collections.Lists.Write")]
 public class WriteObjectValueListElement<T> : ActionNode<FrooxEngineContext>
 {

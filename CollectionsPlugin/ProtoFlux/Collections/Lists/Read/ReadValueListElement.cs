@@ -6,7 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Read Value List Element")]
+[NodeName("Read List Element")]
 [NodeOverload("Collections.Lists.Read")]
 public class ReadValueListElement<T> : VoidNode<FrooxEngineContext> where T: unmanaged
 {

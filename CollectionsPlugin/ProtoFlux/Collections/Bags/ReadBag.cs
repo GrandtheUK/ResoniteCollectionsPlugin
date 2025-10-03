@@ -6,6 +6,7 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Bags;
 
 [NodeCategory("Collections/Bags")]
+[ContinuouslyChanging]
 public class ReadBag<T> : ObjectFunctionNode<FrooxEngineContext,T>
     where T: class, ISyncMember, new()
 {

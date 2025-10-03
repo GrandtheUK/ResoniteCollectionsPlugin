@@ -8,6 +8,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Contains;
 [NodeCategory("Collections/Lists")]
 [NodeOverload("Collections.Lists.Contains")]
 [NodeName("List Contains")]
+[ContinuouslyChanging]
 public class RefListContains<T> : VoidNode<FrooxEngineContext> where T: class, IWorldElement
 {
     public readonly ObjectInput<SyncRefList<T>> List;

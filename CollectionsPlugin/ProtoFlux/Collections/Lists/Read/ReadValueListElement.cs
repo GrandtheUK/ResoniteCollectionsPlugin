@@ -8,6 +8,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 [NodeCategory("Collections/Lists")]
 [NodeName("Read List Element")]
 [NodeOverload("Collections.Lists.Read")]
+[ContinuouslyChanging]
 public class ReadValueListElement<T> : VoidNode<FrooxEngineContext> where T: unmanaged
 {
     public readonly ObjectInput<SyncFieldList<T>> List;

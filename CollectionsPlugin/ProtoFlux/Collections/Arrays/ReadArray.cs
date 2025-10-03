@@ -7,6 +7,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Arrays;
 
 [NodeCategory("Collections/Arrays")]
 [NodeName("Read Array")]
+[ContinuouslyChanging]
 public class ReadArray<T> : VoidNode<FrooxEngineContext>
     where T: unmanaged, IEquatable<T>
 {

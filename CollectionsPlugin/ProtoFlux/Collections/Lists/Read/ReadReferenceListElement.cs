@@ -8,6 +8,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 [NodeCategory("Collections/Lists")]
 [NodeName("Read List Element")]
 [NodeOverload("Collections.Lists.Read")]
+[ContinuouslyChanging]
 public class ReadReferenceListElement<T> : VoidNode<FrooxEngineContext> where T : class, IWorldElement
 {
     public readonly ObjectInput<SyncRefList<T>> List;

@@ -7,19 +7,18 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
 [NodeName("List Events")]
-public class ListEvents: ObjectFunctionNode<FrooxEngineContext,ISyncMember>
+public class ListEvents: VoidNode<FrooxEngineContext>
 {
     public Call OnAdded;
     public Call OnRemoved;
     public Call OnChanged;
     public readonly GlobalRef<ISyncList> List;
+    public readonly ObjectOutput<ISyncMember> Value;
     private ObjectStore<ISyncList> _list;
 
     private ObjectStore<SyncListElementsEvent> _added;
     private ObjectStore<SyncListElementsEvent> _removed;
     private ObjectStore<Action<IChangeable>> _changed;
-    
-    private ObjectStore<ISyncMember> _elem;
 
     private class ListEventData
     {
@@ -78,9 +77,8 @@ public class ListEvents: ObjectFunctionNode<FrooxEngineContext,ISyncMember>
         for (int i = eventData.startIndex; i < eventData.count; i++)
         {
             ISyncMember elem = eventData.syncList.GetElement(i);
-            _elem.Write(elem,context);
-            Compute(context);
-            _elem.Write(default,context);
+            Value.Write(elem,context);
+            Value.Write(default,context);
         }
         OnAdded.Execute(context);
     }
@@ -91,30 +89,19 @@ public class ListEvents: ObjectFunctionNode<FrooxEngineContext,ISyncMember>
         for (int i = eventData.startIndex; i < eventData.count; i++)
         {
             ISyncMember elem = eventData.syncList.GetElement(i);
-            _elem.Write(elem,context);
-            Compute(context);
-            _elem.Write(default,context);
+            Value.Write(elem,context);
         }
         OnRemoved.Execute(context);
     }
         
     void ValueOnChanged(FrooxEngineContext context,object args)
     {
-        _elem.Write((ISyncMember)args,context);
-        Compute(context);
-        _elem.Write(default,context);
+        Value.Write((ISyncMember)args,context);
         OnChanged.Execute(context);
     }
     public ListEvents()
     {
         List = new GlobalRef<ISyncList>(this,0);
-    }
-
-    public ISyncList Read(FrooxEngineContext context) => List.Read(context);
-
-    public bool Write(ISyncList value, FrooxEngineContext context) => List.Write(value, context);
-    protected override ISyncMember Compute(FrooxEngineContext context)
-    {
-        return _elem.Read(context);
+        Value = new ObjectOutput<ISyncMember>(this);
     }
 }

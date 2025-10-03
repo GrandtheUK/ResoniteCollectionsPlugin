@@ -6,9 +6,9 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Get Value List Element")]
+[NodeName("Read Value List Element")]
 [NodeOverload("Collections.Lists.Read")]
-public class GetValueListElement<T> : VoidNode<FrooxEngineContext> where T: unmanaged
+public class ReadValueListElement<T> : VoidNode<FrooxEngineContext> where T: unmanaged
 {
     public readonly ObjectInput<SyncFieldList<T>> List;
     public readonly ValueInput<int> Index;
@@ -27,7 +27,7 @@ public class GetValueListElement<T> : VoidNode<FrooxEngineContext> where T: unma
         Value.Write(l[i],context);
         HasValue.Write(true,context);
     }
-    public GetValueListElement()
+    public ReadValueListElement()
     {
         Value = new ValueOutput<T>(this);
         HasValue = new ValueOutput<bool>(this);

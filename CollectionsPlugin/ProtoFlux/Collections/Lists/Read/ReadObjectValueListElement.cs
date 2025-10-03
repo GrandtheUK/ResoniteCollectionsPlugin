@@ -6,30 +6,32 @@ using ProtoFlux.Runtimes.Execution;
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Get Reference List Element")]
+[NodeName("ReadList Element")]
 [NodeOverload("Collections.Lists.Read")]
-public class GetRefListElement<T> : VoidNode<FrooxEngineContext> where T : class, IWorldElement
+public class ReadObjectValueListElement<T> : VoidNode<FrooxEngineContext>
 {
-    public readonly ObjectInput<SyncRefList<T>> List;
+    public readonly ObjectInput<ISyncList> List;
     public readonly ValueInput<int> Index;
     public readonly ObjectOutput<T> Value;
     public readonly ValueOutput<bool> HasValue;
+    
+    Type[] _types = [typeof(string),typeof(Uri),typeof(Nullable)];
 
     protected override void ComputeOutputs(FrooxEngineContext context)
     {
-        SyncRefList<T> l = List.Evaluate(context);
+        ISyncList l = List.Evaluate(context);
         int i = Index.Evaluate(context);
-        if (i < 0 || l == null || i >= l.Count || l.Count == 0)
+        if (i < 0 || l == null || i >= l.Count || l.Count == 0 || !_types.Contains(typeof(T)))
         {
-            Value.Write(null,context);
+            Value.Write(default,context);
             HasValue.Write(false,context);
             return;
         }
-        Value.Write(l[i], context);
+        Value.Write((T)l.GetElement(i), context);
         HasValue.Write(true,context);
     }
 
-    public GetRefListElement()
+    public ReadObjectValueListElement()
     {
         Value = new ObjectOutput<T>(this);
         HasValue = new ValueOutput<bool>(this);

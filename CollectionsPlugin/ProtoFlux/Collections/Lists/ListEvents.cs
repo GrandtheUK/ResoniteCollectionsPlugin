@@ -11,6 +11,7 @@ public class ListEvents: ObjectFunctionNode<FrooxEngineContext,ISyncMember>
 {
     public Call OnAdded;
     public Call OnRemoved;
+    public Call OnChanged;
     public readonly GlobalRef<ISyncList> List;
     private ObjectStore<ISyncList> _list;
     private ObjectStore<ISyncMember> _elem;
@@ -54,6 +55,7 @@ public class ListEvents: ObjectFunctionNode<FrooxEngineContext,ISyncMember>
             _elem.Write((ISyncMember)obj,context);
             Compute(context);
             _elem.Write(default,context);
+            OnChanged.Execute(context);
         }
 
         if (value != null)

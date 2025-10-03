@@ -10,7 +10,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Read;
 [NodeOverload("Collections.Lists.Read")]
 public class ReadObjectValueListElement<T> : VoidNode<FrooxEngineContext>
 {
-    public readonly ObjectInput<ISyncList> List;
+    public readonly ObjectInput<SyncFieldList<T>> List;
     public readonly ValueInput<int> Index;
     public readonly ObjectOutput<T> Value;
     public readonly ValueOutput<bool> HasValue;

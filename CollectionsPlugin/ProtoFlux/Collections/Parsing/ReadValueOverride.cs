@@ -3,9 +3,9 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace CollectionsPlugin.ProtoFlux.Collections.Bags.Parsing;
+namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 
-[NodeCategory("Collections/Bags/Parsing")]
+[NodeCategory("Collections/Parsing")]
 [NodeName("Read Override")]
 public class ReadValueOverride<T> : VoidNode<FrooxEngineContext>
     where T : unmanaged

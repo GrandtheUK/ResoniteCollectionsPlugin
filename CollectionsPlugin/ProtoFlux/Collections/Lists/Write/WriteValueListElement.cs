@@ -11,7 +11,7 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 public class WriteValueListElement<T> : ActionNode<FrooxEngineContext>
     where T: unmanaged
 {
-    public readonly ObjectInput<ISyncList> List;
+    public readonly ObjectInput<SyncFieldList<T>> List;
     public readonly ValueInput<int> Index;
     public readonly ValueInput<T> Value;
     public Continuation OnFailed;
@@ -21,7 +21,7 @@ public class WriteValueListElement<T> : ActionNode<FrooxEngineContext>
 
     protected override IOperation Run(FrooxEngineContext context)
     {
-        SyncFieldList<T> list = (SyncFieldList<T>) List.Evaluate(context);
+        SyncFieldList<T> list = List.Evaluate(context);
         int index = Index.Evaluate(context);
         if (list == null || index < 0) return OnNotFound.Target;
         if (index > list.Count) return OnFailed.Target;

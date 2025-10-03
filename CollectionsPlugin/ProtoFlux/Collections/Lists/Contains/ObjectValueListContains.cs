@@ -8,9 +8,9 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Contains;
 [NodeCategory("Collections/Lists")]
 [NodeOverload("Collections.Lists.Contains")]
 [NodeName("Object List Contains")]
-public class ObjectListContains<T> : VoidNode<FrooxEngineContext>
+public class ObjectValueListContains<T> : VoidNode<FrooxEngineContext>
 {
-    public readonly ObjectInput<ISyncList> List;
+    public readonly ObjectInput<SyncFieldList<T>> List;
     public readonly ObjectInput<T> Value;
     public readonly ValueOutput<bool> Contains;
 
@@ -34,7 +34,7 @@ public class ObjectListContains<T> : VoidNode<FrooxEngineContext>
                 break;
         } 
     }
-    public ObjectListContains()
+    public ObjectValueListContains()
     {
         Contains = new ValueOutput<bool>(this);
     }

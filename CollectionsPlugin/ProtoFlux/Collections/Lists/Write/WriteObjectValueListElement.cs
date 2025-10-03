@@ -3,24 +3,23 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
+namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Write;
 
 [NodeCategory("Collections/Lists")]
-[NodeName("Write Reference List Element")]
+[NodeName("Write Object List Element")]
 [NodeOverload("Collections.Lists.Write")]
-public class WriteRefListElement<T> : ActionNode<FrooxEngineContext>
-    where T: class, IWorldElement
+public class WriteObjectValueListElement<T> : ActionNode<FrooxEngineContext>
 {
-    public readonly ObjectInput<T> Value;
-    public readonly ObjectInput<SyncRefList<T>> List;
+    public readonly ObjectInput<SyncFieldList<T>> List;
     public readonly ValueInput<int> Index;
+    public readonly ObjectInput<T> Value;
     public Continuation OnFailed;
     public Continuation OnSuccess;
     public Continuation OnNotFound;
 
     protected override IOperation Run(FrooxEngineContext context)
     {
-        SyncRefList<T> list = List.Evaluate(context);
+        SyncFieldList<T> list = List.Evaluate(context);
         int index = Index.Evaluate(context);
         if (list == null || index < 0) return OnNotFound.Target;
         if (index > list.Count) return OnFailed.Target;
@@ -29,3 +28,4 @@ public class WriteRefListElement<T> : ActionNode<FrooxEngineContext>
         return OnSuccess.Target;
     }
 }
+

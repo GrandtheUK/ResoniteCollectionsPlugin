@@ -46,8 +46,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         if (value != null)
         {
             NodeContextPath path = context.CaptureContextPath();
-            ExecutionEventDispatcher<FrooxEngineContext> dispatcher;
-            context.GetEventDispatcher(out dispatcher);
+            context.GetEventDispatcher(out ExecutionEventDispatcher<FrooxEngineContext> dispatcher);
             SyncListElementsEvent added = (list, startIndex, count) => dispatcher.ScheduleEvent(path,
                 ListOnElementsAdded, new ListEventData(list,startIndex,count));
             SyncListElementsEvent removed = (list, startIndex, count) => dispatcher.ScheduleEvent(path,

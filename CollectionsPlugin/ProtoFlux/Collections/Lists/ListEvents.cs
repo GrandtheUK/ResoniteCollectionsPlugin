@@ -99,6 +99,12 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         Value.Write((ISyncMember)args,context);
         OnChanged.Execute(context);
     }
+
+    protected override void ComputeOutputs(FrooxEngineContext context)
+    {
+        Value.Write(default,context);
+    }
+
     public ListEvents()
     {
         List = new GlobalRef<ISyncList>(this,0);

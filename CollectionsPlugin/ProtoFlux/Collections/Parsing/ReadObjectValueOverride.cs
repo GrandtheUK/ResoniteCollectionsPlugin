@@ -21,9 +21,9 @@ public class ReadObjectValueOverride<T> : VoidNode<FrooxEngineContext>
         ValueOverrideBase<T>.Override o = Override.Evaluate(context);
         if (o == null)
         {
-            User.Write(null, context);
-            MachineId.Write(null,context);
-            UserId.Write(null,context);
+            User.Write(default, context);
+            MachineId.Write(default,context);
+            UserId.Write(default,context);
             Value.Write(default,context);
             return;
         }

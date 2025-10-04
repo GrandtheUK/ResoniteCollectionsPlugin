@@ -23,9 +23,10 @@ public class ReadValueOverride<T> : VoidNode<FrooxEngineContext>
         if (o == null)
         {
             User.Write(default, context);
-            MachineId.Write(null,context);
-            UserId.Write(null,context);
+            MachineId.Write(default,context);
+            UserId.Write(default,context);
             Value.Write(default,context);
+            return;
         }
         User.Write(o.User.Target,context);
         MachineId.Write(o.User.LinkedMachineId,context);

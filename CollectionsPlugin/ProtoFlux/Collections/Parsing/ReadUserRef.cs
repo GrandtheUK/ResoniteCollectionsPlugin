@@ -8,18 +8,32 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read UserRef")]
 [ContinuouslyChanging]
-public class ReadUserRef : ObjectFunctionNode<FrooxEngineContext,User>
+public class ReadUserRef : VoidNode<FrooxEngineContext>
 {
     public readonly ObjectInput<UserRef> UserRef;
+    public readonly ObjectOutput<User> User;
+    public readonly ObjectOutput<string> MachineId;
+    public readonly ObjectOutput<string> UserId;
 
-    protected override User Compute(FrooxEngineContext context)
+    protected override void ComputeOutputs(FrooxEngineContext context)
     {
         UserRef userRef = UserRef.Evaluate(context);
         if (userRef == null || userRef.Target == null)
         {
-            return null;
+            User.Write(null,context);
+            MachineId.Write(null,context);
+            UserId.Write(null,context);
+            return;
         }
+        User.Write(userRef.Target,context);
+        MachineId.Write(userRef.LinkedMachineId,context);
+        UserId.Write(userRef.LinkedCloudId,context);
+    }
 
-        return userRef.Target;
+    public ReadUserRef()
+    {
+        User = new ObjectOutput<User>(this);
+        MachineId = new ObjectOutput<string>(this);
+        UserId = new ObjectOutput<string>(this);
     }
 }

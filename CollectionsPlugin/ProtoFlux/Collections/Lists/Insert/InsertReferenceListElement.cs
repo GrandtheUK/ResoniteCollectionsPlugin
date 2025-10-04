@@ -5,6 +5,9 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Insert;
 
+[NodeCategory("Collections/Lists")]
+[NodeName("Insert List Element")]
+[NodeOverload("Collections.List.Insert")]
 public class InsertReferenceListElement<T> : ActionNode<FrooxEngineContext>
     where T: class, IWorldElement, new()
 {

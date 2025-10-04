@@ -5,6 +5,9 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists.Append;
 
+[NodeCategory("Collections/Lists")]
+[NodeName("Append List Element")]
+[NodeOverload("Collections.List.Append")]
 public class AppendReferenceListElement<T> : ActionNode<FrooxEngineContext>
     where T: class, IWorldElement, new()
 {

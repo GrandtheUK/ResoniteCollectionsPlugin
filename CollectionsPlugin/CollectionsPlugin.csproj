@@ -56,30 +56,5 @@
     <Target Name="CopyBinary" AfterTargets="PostBuildEvent">
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(resonitePath)Libraries"/>
     </Target>
-<!--    <Target Name="GenerateBindings" AfterTargets="Build">-->
-<!--        &lt;!&ndash; Symlink required DLLs. if you make no reference to FrooxEngine in your code then you can remove everything but ProtoFlux.Core.dll &ndash;&gt;-->
-<!--        <ItemGroup>-->
-<!--            <SourceFiles Include="-->
-<!--                $(ResonitePath)ProtoFlux.Core.dll;-->
-<!--                $(ResonitePath)FrooxEngine.dll;-->
-<!--                $(ResonitePath)SkyFrost.Base.dll;-->
-<!--                $(ResonitePath)Renderite.Shared.dll;-->
-<!--                $(ResonitePath)Elements.Assets.dll;-->
-<!--                $(ResonitePath)BepuPhysics.dll;"/>-->
-<!--            <DestFiles Include="-->
-<!--                $(TargetDir)ProtoFlux.Core.dll;-->
-<!--                $(TargetDir)FrooxEngine.dll;-->
-<!--                $(TargetDir)SkyFrost.Base.dll;-->
-<!--                $(TargetDir)Renderite.Shared.dll;-->
-<!--                $(TargetDir)Elements.Assets.dll;-->
-<!--                $(TargetDir)BepuPhysics.dll;"/>-->
-<!--        </ItemGroup>-->
-<!--        <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(TargetDir)" UseSymboliclinksIfPossible="true"/>-->
-<!--        -->
-<!--        &lt;!&ndash; Run Bindings Generator &ndash;&gt;-->
-<!--        <Exec Command="dotnet $(ResonitePath)Tools/ProtofluxBindingGenerator/net9.0/ProtoFluxBindingGenerator.dll $(MSBuildProjectDirectory)/../CollectionsPluginBindings/bindings $(TargetDir)"/>-->
-<!--        &lt;!&ndash; Clean up the required DLLs &ndash;&gt;-->
-<!--        <Delete Files="@(DestFiles)"/>-->
-<!--    </Target>-->
 
 </Project>

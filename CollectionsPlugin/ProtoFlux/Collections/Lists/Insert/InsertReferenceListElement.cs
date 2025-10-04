@@ -14,7 +14,7 @@ public class InsertReferenceListElement<T> : ActionNode<FrooxEngineContext>
     public readonly ObjectInput<SyncRefList<T>> List;
     public readonly ValueInput<int> Index;
     public readonly ObjectInput<T> Value;
-    public Continuation OnFailure;
+    public Continuation OnFailed;
     public Continuation OnSuccess;
     public Continuation OnNotFound;
     
@@ -23,7 +23,7 @@ public class InsertReferenceListElement<T> : ActionNode<FrooxEngineContext>
         SyncRefList<T> list = List.Evaluate(context);
         int i = Index.Evaluate(context);
         if (list == null || i<0 ) return OnNotFound.Target;
-        if (i > list.Count) return OnFailure.Target;
+        if (i > list.Count) return OnFailed.Target;
         list.Insert(i, Value.Evaluate(context));
         return OnSuccess.Target;
     }

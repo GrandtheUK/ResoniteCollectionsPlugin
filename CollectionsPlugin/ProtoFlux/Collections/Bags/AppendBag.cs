@@ -27,4 +27,9 @@ public class AppendBag<T> : ActionNode<FrooxEngineContext>
         Element.Write(elem,context);
         return OnSuccess.Target;
     }
+
+    public AppendBag()
+    {
+        Element = new ObjectOutput<T>(this);
+    }
 }

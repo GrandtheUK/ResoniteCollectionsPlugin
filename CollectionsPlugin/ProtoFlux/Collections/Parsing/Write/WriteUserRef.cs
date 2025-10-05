@@ -26,7 +26,7 @@ public class WriteUserRef : ActionNode<FrooxEngineContext>
         }
 
         string id = MachineId.Evaluate(context) ?? UserId.Evaluate(context);
-        if (id.Any())
+        if (id != "" || id == null)
         {
             userRef.SetFromIdAuto(id);
             return OnSuccess.Target;

@@ -13,9 +13,7 @@ public class ReadReferenceOverride<T> : VoidNode<FrooxEngineContext>
     where T : class, IWorldElement
 {
     public readonly ObjectInput<ReferenceUserOverride<T>.Override> Override;
-    public readonly ObjectOutput<User> User;
-    public readonly ObjectOutput<string> MachineId;
-    public readonly ObjectOutput<string> UserId;
+    public readonly ObjectOutput<UserRef> UserRef;
     public readonly ObjectOutput<T> Value;
 
     protected override void ComputeOutputs(FrooxEngineContext context)
@@ -23,23 +21,17 @@ public class ReadReferenceOverride<T> : VoidNode<FrooxEngineContext>
         ReferenceUserOverride<T>.Override o = Override.Evaluate(context);
         if (o == null)
         {
-            User.Write(default, context);
-            MachineId.Write(default,context);
-            UserId.Write(default,context);
+            UserRef.Write(default, context);
             Value.Write(default,context);
             return;
         }
-        User.Write(o.User.Target,context);
-        MachineId.Write(o.User.LinkedMachineId,context);
-        UserId.Write(o.User.LinkedCloudId,context);
+        UserRef.Write(o.User,context);
         Value.Write(o.Value.Target,context);
     }
 
     public ReadReferenceOverride()
     {
-        User = new ObjectOutput<User>(this);
-        MachineId = new ObjectOutput<string>(this);
-        UserId = new ObjectOutput<string>(this);
+        UserRef = new ObjectOutput<UserRef>(this);
         Value = new ObjectOutput<T>(this);
     }
 }

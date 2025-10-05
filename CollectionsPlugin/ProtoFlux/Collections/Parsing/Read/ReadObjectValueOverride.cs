@@ -3,10 +3,11 @@ using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
 using ProtoFlux.Runtimes.Execution;
 
-namespace CollectionsPlugin.ProtoFlux.Collections.Parsing;
+namespace CollectionsPlugin.ProtoFlux.Collections.Parsing.Read;
 
 [NodeCategory("Collections/Parsing")]
 [NodeName("Read Override")]
+[NodeOverload("Collections.Parsing.Read")]
 [ContinuouslyChanging]
 public class ReadObjectValueOverride<T> : VoidNode<FrooxEngineContext>
 {

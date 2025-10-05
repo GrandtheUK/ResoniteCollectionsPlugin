@@ -20,7 +20,11 @@ public class NewValueObjectOverride<T> : ActionNode<FrooxEngineContext>
     {
         ValueOverrideBase<T>.Override newOverride = new ValueOverrideBase<T>.Override();
         UserRef user = UserRef.Evaluate(context,new UserRef());
-        string id = user.LinkedCloudId ?? user.LinkedMachineId;
+        string id = "";
+        if (user != null)
+        {
+            id = user.LinkedCloudId ?? user.LinkedMachineId;
+        }
         newOverride.User.SetFromIdAuto(id);
         newOverride.Value.Value = Value.Evaluate(context);
         Override.Write(newOverride,context);

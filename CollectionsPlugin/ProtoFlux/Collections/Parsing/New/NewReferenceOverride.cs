@@ -21,7 +21,11 @@ public class NewReferenceOverride<T> : ActionNode<FrooxEngineContext>
     {
         ReferenceUserOverride<T>.Override newOverride = new ReferenceUserOverride<T>.Override();
         UserRef user = UserRef.Evaluate(context,new UserRef());
-        string id = user.LinkedCloudId ?? user.LinkedMachineId;
+        string id = "";
+        if (user != null)
+        {
+            id = user.LinkedCloudId ?? user.LinkedMachineId;
+        }
         newOverride.User.SetFromIdAuto(id);
         newOverride.Value.Target = Value.Evaluate(context);
         Override.Write(newOverride,context);

@@ -1,4 +1,3 @@
-using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -6,7 +5,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Bags;
 
-[NodeCategory("Collection/Bags")]
+[NodeCategory("Collections/Bags")]
 [NodeName("Append Bag")]
 public class AppendBag<T> : ActionNode<FrooxEngineContext>
     where T: class, ISyncMember, new()

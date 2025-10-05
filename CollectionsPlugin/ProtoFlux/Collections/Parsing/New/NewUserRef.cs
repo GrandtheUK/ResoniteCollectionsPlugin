@@ -5,7 +5,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Parsing.New;
 
-[NodeCategory("Collection/Parsing")]
+[NodeCategory("Collections/Parsing")]
 [NodeName("New UserRef")]
 [NodeOverload("Collections.Parsing.New")]
 public class NewUserRef : ActionNode<FrooxEngineContext>

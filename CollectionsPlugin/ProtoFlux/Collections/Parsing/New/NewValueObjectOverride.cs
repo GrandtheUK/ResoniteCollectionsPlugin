@@ -5,7 +5,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Parsing.New;
 
-[NodeCategory("Collection/Parsing")]
+[NodeCategory("Collections/Parsing")]
 [NodeName("New Override")]
 [NodeOverload("Collections.Parsing.New")]
 public class NewValueObjectOverride<T> : ActionNode<FrooxEngineContext>

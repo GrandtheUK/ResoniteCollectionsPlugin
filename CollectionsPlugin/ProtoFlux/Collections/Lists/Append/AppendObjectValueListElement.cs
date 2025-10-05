@@ -19,7 +19,7 @@ public class AppendObjectValueListElement<T> : ActionNode<FrooxEngineContext>
     {
         SyncFieldList<T> list = List.Evaluate(context);
         if (list == null) return OnNotFound.Target;
-        list.Append(Value.Evaluate(context));
+        list.Insert(list.Count, Value.Evaluate(context));
         return OnSuccess.Target;
     }
 }

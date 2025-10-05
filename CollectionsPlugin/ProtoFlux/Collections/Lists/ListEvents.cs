@@ -20,16 +20,19 @@ public class ListEvents: VoidNode<FrooxEngineContext>
     private ObjectStore<SyncListElementsEvent> _removed;
     private ObjectStore<Action<IChangeable>> _changed;
 
-    public struct ListEventData(
-        ISyncMember Value,
+    public struct ListEvent(
         in ISyncList syncList,
         in int startIndex,
         in int count)
     {
-        public ISyncMember Value = Value;
         public readonly ISyncList syncList = syncList;
         public readonly int startIndex = startIndex;
         public readonly int count = count;
+    }
+
+    public struct ListEventData(ISyncMember Value)
+    {
+        public readonly ISyncMember Value = Value;
     }
 
     private void WriteEventData(in ListEventData eventData, FrooxEngineContext context)
@@ -51,9 +54,9 @@ public class ListEvents: VoidNode<FrooxEngineContext>
             NodeContextPath path = context.CaptureContextPath();
             context.GetEventDispatcher(out ExecutionEventDispatcher<FrooxEngineContext> dispatcher);
             SyncListElementsEvent added = (list, startIndex, count) => dispatcher.ScheduleEvent(path,
-                ListOnElementsAdded, new ListEventData(null,list,startIndex,count));
+                ListOnElementsAdded, new ListEvent(list,startIndex,count));
             SyncListElementsEvent removed = (list, startIndex, count) => dispatcher.ScheduleEvent(path,
-                ListOnElementsRemoved, new ListEventData(null,list,startIndex,count));
+                ListOnElementsRemoved, new ListEvent(list,startIndex,count));
             Action<IChangeable> changed = (changed) => dispatcher.ScheduleEvent(path, ValueOnChanged, changed);
             value.ElementsAdded += added;
             value.ElementsRemoved += removed;
@@ -75,24 +78,24 @@ public class ListEvents: VoidNode<FrooxEngineContext>
     
     void ListOnElementsAdded(FrooxEngineContext context,object args)
     {
-        ListEventData eventData = (ListEventData)args;
+        ListEvent eventData = (ListEvent)args;
         for (int i = eventData.startIndex; i < eventData.count; i++)
         {
             ISyncMember elem = eventData.syncList.GetElement(i);
-            eventData.Value = elem;
-            WriteEventData(in eventData, context);
+            ListEventData data = new ListEventData(elem);
+            WriteEventData(in data, context);
             OnAdded.Execute(context);
         }
     }
     
     void ListOnElementsRemoved(FrooxEngineContext context,object args)
     {
-        ListEventData eventData = (ListEventData)args;
+        ListEvent eventData = (ListEvent)args;
         for (int i = eventData.startIndex; i < eventData.count; i++)
         {
             ISyncMember elem = eventData.syncList.GetElement(i);
-            eventData.Value = elem;
-            WriteEventData(in eventData, context);
+            ListEventData data = new ListEventData(elem);
+            WriteEventData(in data, context);
             OnRemoved.Execute(context);
         }
         
@@ -100,7 +103,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         
     void ValueOnChanged(FrooxEngineContext context,object args)
     {
-        Value.Write((ISyncMember)args,context);
+        ListEventData data = new ListEventData((ISyncMember)args);
         OnChanged.Execute(context);
     }
 

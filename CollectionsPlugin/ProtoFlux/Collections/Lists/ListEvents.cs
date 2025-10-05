@@ -10,14 +10,14 @@ namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 public class ListEvents: VoidNode<FrooxEngineContext>
 {
     public Call OnAdded;
-    public Call OnRemoved;
+    public Call OnRemoving;
     public Call OnChanged;
     public readonly GlobalRef<ISyncList> List;
     public readonly ObjectOutput<ISyncMember> Value;
     private ObjectStore<ISyncList> _list;
 
     private ObjectStore<SyncListElementsEvent> _added;
-    private ObjectStore<SyncListElementsEvent> _removed;
+    private ObjectStore<SyncListElementsEvent> _removing;
     private ObjectStore<Action<IChangeable>> _changed;
     private HashSet<NodeContextPath> _currentlyFiring = new HashSet<NodeContextPath>();
 
@@ -47,7 +47,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         if (list != null)
         {
             list.ElementsAdded -= _added.Read(context);
-            list.ElementsRemoved -= _removed.Read(context);
+            list.ElementsRemoved -= _removing.Read(context);
             list.Changed -= _changed.Read(context);
         }
         if (value != null)
@@ -64,7 +64,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 dispatcher.ScheduleEvent(path,
                     ListOnElementsAdded, new ListEvent(list, startIndex, count));
             };
-            SyncListElementsEvent removed = (list, startIndex, count) =>
+            SyncListElementsEvent removing = (list, startIndex, count) =>
             {
                 lock (_currentlyFiring)
                 {
@@ -73,7 +73,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 }
 
                 dispatcher.ScheduleEvent(path,
-                    ListOnElementsRemoved, new ListEvent(list, startIndex, count));
+                    ListOnElementsRemoving, new ListEvent(list, startIndex, count));
             };
             Action<IChangeable> changed = (changed) =>
             {
@@ -85,18 +85,18 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 dispatcher.ScheduleEvent(path, ValueOnChanged, changed);
             };
             value.ElementsAdded += added;
-            value.ElementsRemoved += removed;
+            value.ElementsRemoving += removing;
             value.Changed += changed;
             
             _added.Write(added,context);
-            _removed.Write(removed,context);
+            _removing.Write(removing,context);
             _changed.Write(changed,context);
             _list.Write(value,context);
         }
         else
         {
             _added.Clear(context);
-            _removed.Clear(context);
+            _removing.Clear(context);
             _changed.Clear(context);
             _list.Clear(context);
         }
@@ -125,7 +125,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         }
     }
     
-    void ListOnElementsRemoved(FrooxEngineContext context,object args)
+    void ListOnElementsRemoving(FrooxEngineContext context,object args)
     {
         NodeContextPath path = context.CaptureContextPath();
         try
@@ -138,7 +138,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 ISyncMember elem = eventData.syncList.GetElement(i);
                 ListEventData data = new ListEventData(elem);
                 WriteEventData(in data, context);
-                OnRemoved.Execute(context);
+                OnRemoving.Execute(context);
             }
         }
         finally

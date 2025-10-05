@@ -1,3 +1,4 @@
+using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -23,8 +24,16 @@ public class NewReferenceOverride<T> : ActionNode<FrooxEngineContext>
         UserRef user = UserRef.Evaluate(context,new UserRef());
         if (user != null)
         {
-            string id = user.LinkedCloudId ?? user.LinkedMachineId;
-            newOverride.User.SetFromIdAuto(id);
+            try
+            {
+                string id = user.LinkedCloudId ?? user.LinkedMachineId;
+                newOverride.User.SetFromIdAuto(id);
+            }
+            catch
+            {
+                UniLog.Warning("New Override created with no CloudId or MachineId");
+            }
+            
         }
         
         newOverride.Value.Target = Value.Evaluate(context);

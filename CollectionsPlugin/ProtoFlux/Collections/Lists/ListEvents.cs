@@ -42,11 +42,11 @@ public class ListEvents: VoidNode<FrooxEngineContext>
 
     private void OnListChanged(ISyncList value, FrooxEngineContext context)
     {
-        ISyncList list = _list.Read(context);
-        if (list != null)
+        ISyncList l = _list.Read(context);
+        if (l != null)
         {
-            list.ElementsAdded -= _added.Read(context);
-            list.ElementsRemoved -= _removing.Read(context);
+            l.ElementsAdded -= _added.Read(context);
+            l.ElementsRemoving -= _removing.Read(context);
         }
         if (value != null)
         {
@@ -127,7 +127,7 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 _currentlyFiring.Add(path);
             ListEvent eventData = (ListEvent)args;
             List<ISyncMember> list = Pool.BorrowList<ISyncMember>();
-            for (int i = eventData.startIndex; i < eventData.startIndex + eventData.count; i++)
+            for (int i = eventData.startIndex; i <= eventData.startIndex + eventData.count; ++i)
             {
                 if (i < _list.Read(context).Count)
                     list.Add(eventData.syncList.GetElement(i));

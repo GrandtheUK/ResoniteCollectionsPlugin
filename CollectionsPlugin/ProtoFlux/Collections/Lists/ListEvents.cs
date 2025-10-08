@@ -1,4 +1,3 @@
-using Elements.Core;
 using FrooxEngine;
 using FrooxEngine.ProtoFlux;
 using ProtoFlux.Core;
@@ -97,19 +96,17 @@ public class ListEvents: VoidNode<FrooxEngineContext>
             lock (_currentlyFiring)
                 _currentlyFiring.Add(path);
             ListEvent eventData = (ListEvent)args;
-            int count = _list.Read(context).Count;
-            List<ISyncMember> list = Pool.BorrowList<ISyncMember>();
-            for (int i = 0; i < count; ++i)
+            int count = eventData.count;
+            int i = eventData.startIndex;
+            while (count > 0)
             {
                 ISyncMember elem = eventData.syncList.GetElement(i);
-                if (elem != null && !elem.IsRemoved)
-                {
-                    ListEventData data = new ListEventData(elem);
-                    WriteEventData(in data, context);
-                    OnAdded.Execute(context);
-                }
+                ListEventData data = new ListEventData(elem);
+                WriteEventData(in data, context);
+                OnAdded.Execute(context);
+                count -= 1;
+                i += 1;
             }
-            Pool.Return(ref list);
         }
         finally
         {
@@ -126,20 +123,17 @@ public class ListEvents: VoidNode<FrooxEngineContext>
             lock (_currentlyFiring)
                 _currentlyFiring.Add(path);
             ListEvent eventData = (ListEvent)args;
-            List<ISyncMember> list = Pool.BorrowList<ISyncMember>();
-            for (int i = eventData.startIndex; i <= eventData.startIndex + eventData.count; ++i)
-            {
-                if (i < _list.Read(context).Count)
-                    list.Add(eventData.syncList.GetElement(i));
-            }
+            int i = eventData.startIndex;
+            int count = eventData.count;
 
-            foreach (ISyncMember elem in list)
+            while (count > 0)
             {
-                ListEventData data = new ListEventData(elem);
+                ListEventData data = new ListEventData(eventData.syncList.GetElement(i));
                 WriteEventData(in data, context);
                 OnRemoving.Execute(context);
+                count -= 1;
+                i += 1;
             }
-            Pool.Return(ref list);
         }
         finally
         {

@@ -5,7 +5,7 @@ using ProtoFlux.Runtimes.Execution;
 
 namespace CollectionsPlugin.ProtoFlux.Collections.Lists;
 
-[NodeCategory("Collections/Lists/Experimental")]
+[NodeCategory("Collections/Lists")]
 [NodeName("List Events")]
 public class ListEvents: VoidNode<FrooxEngineContext>
 {
@@ -20,26 +20,6 @@ public class ListEvents: VoidNode<FrooxEngineContext>
     private HashSet<NodeContextPath> _currentlyFiring = new HashSet<NodeContextPath>();
 
     public override bool CanBeEvaluated => false;
-
-    public struct ListEvent(
-        in ISyncList syncList,
-        in int startIndex,
-        in int count)
-    {
-        public readonly ISyncList syncList = syncList;
-        public readonly int startIndex = startIndex;
-        public readonly int count = count;
-    }
-
-    public struct ListEventData(ISyncMember Value)
-    {
-        public readonly ISyncMember Value = Value;
-    }
-
-    private void WriteEventData(in ListEventData eventData, FrooxEngineContext context)
-    {
-        Value.Write(eventData.Value,context);
-    }
 
     private void OnListChanged(ISyncList value, FrooxEngineContext context)
     {
@@ -59,9 +39,14 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 {
                     if (_currentlyFiring.Contains(path))
                         return;
+                    while (count > 0)
+                    {
+                        dispatcher.ScheduleEvent(path,
+                            ListOnElementsAdded, list.GetElement(startIndex));
+                        count -= 1;
+                        startIndex += 1;
+                    }
                 }
-                dispatcher.ScheduleEvent(path,
-                    ListOnElementsAdded, new ListEvent(list, startIndex, count));
             };
             SyncListElementsEvent removing = (list, startIndex, count) =>
             {
@@ -69,10 +54,14 @@ public class ListEvents: VoidNode<FrooxEngineContext>
                 {
                     if (_currentlyFiring.Contains(path))
                         return;
+                    while (count > 0)
+                    {
+                        dispatcher.ScheduleEvent(path,
+                            ListOnElementsRemoving, list.GetElement(startIndex));
+                        count -= 1;
+                        startIndex += 1;
+                    }
                 }
-
-                dispatcher.ScheduleEvent(path,
-                    ListOnElementsRemoving, new ListEvent(list, startIndex, count));
             };
 
             value.ElementsAdded += added;
@@ -90,25 +79,15 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         }
     }
     
-    void ListOnElementsAdded(FrooxEngineContext context,object args)
+    void ListOnElementsAdded(FrooxEngineContext context, object args)
     {
         NodeContextPath path = context.CaptureContextPath();
         try
         {
             lock (_currentlyFiring)
                 _currentlyFiring.Add(path);
-            ListEvent eventData = (ListEvent)args;
-            int count = eventData.count;
-            int i = eventData.startIndex;
-            while (count > 0)
-            {
-                ISyncMember elem = eventData.syncList.GetElement(i);
-                ListEventData data = new ListEventData(elem);
-                WriteEventData(in data, context);
-                OnAdded.Execute(context);
-                count -= 1;
-                i += 1;
-            }
+            Value.Write((ISyncMember)args,context);
+            OnAdded.Execute(context);
         }
         finally
         {
@@ -117,25 +96,15 @@ public class ListEvents: VoidNode<FrooxEngineContext>
         }
     }
     
-    void ListOnElementsRemoving(FrooxEngineContext context,object args)
+    void ListOnElementsRemoving(FrooxEngineContext context, object args)
     {
         NodeContextPath path = context.CaptureContextPath();
         try
         {
             lock (_currentlyFiring)
                 _currentlyFiring.Add(path);
-            ListEvent eventData = (ListEvent)args;
-            int i = eventData.startIndex;
-            int count = eventData.count;
-
-            while (count > 0)
-            {
-                ListEventData data = new ListEventData(eventData.syncList.GetElement(i));
-                WriteEventData(in data, context);
-                OnRemoving.Execute(context);
-                count -= 1;
-                i += 1;
-            }
+            Value.Write((ISyncMember)args,context);
+            OnRemoving.Execute(context);
         }
         finally
         {

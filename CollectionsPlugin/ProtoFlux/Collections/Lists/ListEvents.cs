@@ -19,6 +19,8 @@ public class ListEvents: VoidNode<FrooxEngineContext>
     private ObjectStore<SyncListElementsEvent> _removing;
     private HashSet<NodeContextPath> _currentlyFiring = new HashSet<NodeContextPath>();
 
+    public override bool CanBeEvaluated => false;
+
     public struct ListEvent(
         in ISyncList syncList,
         in int startIndex,
@@ -140,11 +142,6 @@ public class ListEvents: VoidNode<FrooxEngineContext>
             lock (_currentlyFiring)
                 _currentlyFiring.Remove(path);
         }
-    }
-
-    protected override void ComputeOutputs(FrooxEngineContext context)
-    {
-        Value.Write(default,context);
     }
 
     public ListEvents()

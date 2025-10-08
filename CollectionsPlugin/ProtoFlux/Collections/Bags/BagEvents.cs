@@ -83,4 +83,10 @@ public class BagEvents<T> : VoidNode<FrooxEngineContext>
         Value.Write((T)eventData,context);
         OnRemoved.Execute(context);
     }
+
+    public BagEvents()
+    {
+        Bag = new GlobalRef<SyncBag<T>>(this, 0);
+        Value = new ObjectOutput<T>(this);
+    }
 }

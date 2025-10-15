@@ -20,7 +20,7 @@ public class ObjectValueListContains<T> : VoidNode<FrooxEngineContext>
         ISyncList list = List.Evaluate(context);
         T val = Value.Evaluate(context);
         
-        if (list == null)
+        if (list == null || list.Count == 0)
         {
             Contains.Write(false,context);
         }

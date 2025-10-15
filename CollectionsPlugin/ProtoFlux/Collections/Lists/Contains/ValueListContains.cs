@@ -21,7 +21,7 @@ public class ValueListContains<T> : VoidNode<FrooxEngineContext> where T: unmana
         SyncFieldList<T> list = List.Evaluate(context);
         T val = Value.Evaluate(context);
         
-        if (list == null)
+        if (list == null || list.Count == 0)
         {
             Contains.Write(false,context);
         }

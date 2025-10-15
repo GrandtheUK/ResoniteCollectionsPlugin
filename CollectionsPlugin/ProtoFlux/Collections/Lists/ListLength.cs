@@ -15,6 +15,11 @@ public class ListLength : VoidNode<FrooxEngineContext>
     override protected void ComputeOutputs(FrooxEngineContext context)
     {
         ISyncList l = List.Evaluate(context);
+        if (l == null)
+        {
+            Length.Write(0,context);
+            return;
+        }
         Length.Write(l.Count, context);
     }
 

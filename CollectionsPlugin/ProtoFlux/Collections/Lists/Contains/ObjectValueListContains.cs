@@ -17,23 +17,15 @@ public class ObjectValueListContains<T> : VoidNode<FrooxEngineContext>
 
     protected override void ComputeOutputs(FrooxEngineContext context)
     {
-        ISyncList list = List.Evaluate(context);
+        SyncFieldList<T> list = List.Evaluate(context);
         T val = Value.Evaluate(context);
         
         if (list == null || list.Count == 0)
         {
             Contains.Write(false,context);
+            return;
         }
-
-        switch (list.GetType())
-        {
-            case SyncFieldList<T> l:
-                Contains.Write(l.Contains(val),context);
-                break;
-            default:
-                Contains.Write(false,context);
-                break;
-        } 
+        Contains.Write(list.Contains(val),context);
     }
     public ObjectValueListContains()
     {

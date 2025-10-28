@@ -24,6 +24,7 @@ public class RefListContains<T> : VoidNode<FrooxEngineContext> where T: class, I
         if (list == null || list.Count == 0)
         {
             Contains.Write(false,context);
+            return;
         }
 
         Contains.Write(list.Contains(val),context);

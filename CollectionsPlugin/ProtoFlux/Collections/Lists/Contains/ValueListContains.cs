@@ -24,6 +24,7 @@ public class ValueListContains<T> : VoidNode<FrooxEngineContext> where T: unmana
         if (list == null || list.Count == 0)
         {
             Contains.Write(false,context);
+            return;
         }
 
         Contains.Write(list.Contains(val),context);
